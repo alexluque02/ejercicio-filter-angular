@@ -1,0 +1,22 @@
+<ngb-pagination [maxSize]="5" [boundaryLinks]="true" [collectionSize]="count" [(page)]="page" [pageSize]="20"
+    (pageChange)="loadNewPage()" aria-label="Default pagination"></ngb-pagination>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Assignee</mat-label>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="showDetails(option)">
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
+<div *ngIf="selectedCharacter" class="card" style="width: 18rem;">
+    <img [src]="selectedCharacter.image" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{selectedCharacter.name}}</h5>
+    </div>
+</div>
+<div class="row" *ngIf="!selectedCharacter">
+    <app-character-item class="col-4" *ngFor="let c of characterList" [character]="c"></app-character-item>
+</div>
